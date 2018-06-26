@@ -15,6 +15,7 @@ export DATESTAMP=`date +%Y-%m-%d\ %H:%M:%S`
 
 # Path to sendemail
 sendemail_path="/usr/local/bin/sendemail"
+
 # Email alert?
 send_email_alert=true
 
@@ -28,7 +29,7 @@ alert_recipient="systems@example.com"
 
 # SMTP server to send the messages through
 # alert_smtp_server="smtp.example.com:port"
-alert_smtp_server="smtp.gmail.com"
+alert_smtp_server="smtp.example.com"
 
 # Subject line of the alert.
 alert_subject="Alert: Promise disk problem detected on $HOSTNAME."
@@ -37,10 +38,13 @@ alert_subject="Alert: Promise disk problem detected on $HOSTNAME."
 alert_header="At $DATESTAMP, a problem was detected on this device:\n"
 
 # Pass / Fail messages
-pass_msg="Promise disk check successful."
+pass_msg="*** Promise disk check successful ***"
 fail_msg=" *** Promise disk check FAILED!!! ***"
 
 # Promise Pegasus command line utility default path
+# Version 3
+# promiseutil_path="/usr/bin/promiseutil"
+# Version 4
 promiseutil_path="/usr/local/bin/promiseutil"
 
 # ------------ Do not edit below this line ------------------
@@ -61,13 +65,13 @@ if [ ! -f $sendemail_path ]; then
         exit 1
 fi
 
-unit_ID_tmp=`mktemp -q "/tmp/$$_ID.XXXX"`
+unit_ID_tmp=`mktemp -q "/tmp/$$unit_ID.XXXX"`
 if [ $? -ne 0 ]; then
         echo "$0: ERROR: Can't create temp file, exiting..."
         exit 1
 fi
 
-smart_results_tmp=`mktemp -q "/tmp/$$_results.XXXX"`
+results_tmp=`mktemp -q "/tmp/$$_results.XXXX"`
 if [ $? -ne 0 ]; then
         echo "$0: ERROR: Can't create temp file, exiting..."
         exit 1
