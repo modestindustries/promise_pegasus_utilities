@@ -30,14 +30,14 @@ send_email_alert=true
 
 # Variables for sendemail
 # Sender's address
-alert_sender="systems@herrainco.ca"
+alert_sender="alerts@example.com"
 
 # Recipient's addresses, comma separated.
 #alert_recipient='recipientone@whereever.com, recipienttwo@whereever.com'
-alert_recipient="systems@modestindustries.com"
+alert_recipient="systems@example.com"
 
 # SMTP server to send the messages through
-alert_smtp_server="smtp.telus.net"
+alert_smtp_server="smtp.example.com"
 
 # ------------ You probably shouldn't edit below this line ------------------
 # Variables
