@@ -9,10 +9,6 @@
 # Works with Promise Utility for Pegasus2 v3.18.0000.18 (http://www.promise.com)
 # Requires sendemail for email alerts (http://caspian.dotconf.net/menu/Software/SendEmail/)
 #
-# Edit History
-# 2014-04-21 - AB: Version 1.0.
-# 2014-05-08 - AB: Refinements.
-# 2014-05-09 - AB: Better message_body if failed.
 
 export DATESTAMP=`date +%Y-%m-%d\ %H:%M:%S`
 
