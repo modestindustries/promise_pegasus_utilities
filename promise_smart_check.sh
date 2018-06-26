@@ -5,8 +5,9 @@
 # Checks Promise Pegasus2 SMART status, checks for ATA errors, logs and mails the output if there's an issue.
 #
 # Author: AB @ Modest Industries
+# 
+# Requires Promise Utility for Pegasus2 (https://www.promise.com), tested with v3.18.0000.18 and v4.02.0000.10.
 #
-# Requires Promise Utility for Pegasus2 (http://www.promise.com), tested with v3.18.0000.18
 # Requires sendemail for email alerts (http://caspian.dotconf.net/menu/Software/SendEmail/)
 #
 
@@ -15,7 +16,7 @@ export DATESTAMP=`date +%Y-%m-%d\ %H:%M:%S`
 # Editable variables
 
 # Path to sendemail
-sendemail_path="/Library/Scripts/Monitoring/sendemail"
+sendemail_path="/usr/local/bin/sendemail"
 
 # Send email alerts?
 send_email_alert=true
@@ -30,6 +31,12 @@ alert_recipient="systems@pretendco.com"
 
 # SMTP server to send the messages through
 alert_smtp_server="smtp.example.com"
+
+# Promise Pegasus command line utility default path
+# Version 3
+# promiseutil_path="/usr/bin/promiseutil"
+# Version 4
+promiseutil_path="/usr/local/bin/promiseutil"
 
 # ------------ You probably shouldn't edit below this line ------------------
 # Variables
@@ -54,13 +61,10 @@ message_body=""
 # Alert footer
 alert_footer="Run 'promiseutil -C smart -v' for more information."
 
-# Promise Pegasus command line utility default path
-promiseutil_path="/usr/bin/promiseutil"
-
 # ----------------- Check for promiseutil, sendemail & set up temp files ------------------
 if [ ! -f $promiseutil_path ]; then
         echo "$0 ERROR: $promiseutil_path does not exist"
-        echo  "Please download and install the Promise Pegasus Utility app from http://promise.com"
+        echo  "Please download and install the Promise Pegasus Utility app from https://www.promise.com"
         exit 1
 fi
 
@@ -103,6 +107,7 @@ then
 fi
 
 # Check for ATA errors, which may indicate that the drive is failing even if SMART Health is OK
+# Note that "ATA Error Count" only shows up if the drive is failing.
 ata_errors=$(awk '/^PdId: [1-9][0-9]*/ \
                                 { a=$0; n=4; next } \
                                 n { --n; a=a "\n" $0; next } \
