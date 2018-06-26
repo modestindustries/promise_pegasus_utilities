@@ -40,14 +40,39 @@ alert_header="At $DATESTAMP, a problem was detected on this device:\n"
 pass_msg="Promise disk check successful."
 fail_msg=" *** Promise disk check FAILED!!! ***"
 
+# Promise Pegasus command line utility default path
+promiseutil_path="/usr/local/bin/promiseutil"
+
 # ------------ Do not edit below this line ------------------
 # Variables
 pass=true
 results=""
 
-# Create temp files
-unit_ID_tmp=`mktemp "/tmp/$$_ID.XXXX"`
-results_tmp=`mktemp "/tmp/$$_results.XXXX"`
+# ----------------- Check for promiseutil, sendemail & set up temp files ------------------
+if [ ! -f $promiseutil_path ]; then
+        echo "$0 ERROR: $promiseutil_path does not exist"
+        echo  "Please download and install the Promise Pegasus Utility app from http://promise.com"
+        exit 1
+fi
+
+if [ ! -f $sendemail_path ]; then
+        echo "$0 ERROR: $sendemail_path does not exist"
+        echo  "Please download from http://caspian.dotconf.net/menu/Software/SendEmail/ and then set the \$sendmemail_path variable inside this script"
+        exit 1
+fi
+
+unit_ID_tmp=`mktemp -q "/tmp/$$_ID.XXXX"`
+if [ $? -ne 0 ]; then
+        echo "$0: ERROR: Can't create temp file, exiting..."
+        exit 1
+fi
+
+smart_results_tmp=`mktemp -q "/tmp/$$_results.XXXX"`
+if [ $? -ne 0 ]; then
+        echo "$0: ERROR: Can't create temp file, exiting..."
+        exit 1
+fi
+
 
 # Get header information for this Promise unit. Includes workaround for promiseutil tty issue.
 screen -D -m sh -c "promiseutil -C subsys -v >$tmpdir$unit_ID_tmp"
