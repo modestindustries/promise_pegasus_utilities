@@ -6,7 +6,8 @@
 #
 # Author: A @ Modest Industries
 #
-# Works with Promise Utility for Pegasus2 v3.18.0000.18 (http://www.promise.com)
+# Requires Promise Utility for Pegasus2 (https://www.promise.com), tested with v3.18.0000.18 and v4.02.0000.10.
+
 # Requires sendemail for email alerts (http://caspian.dotconf.net/menu/Software/SendEmail/)
 
 export DATESTAMP=`date +%Y-%m-%d\ %H:%M:%S`
@@ -55,7 +56,7 @@ results=""
 # ----------------- Check for promiseutil, sendemail & set up temp files ------------------
 if [ ! -f $promiseutil_path ]; then
         echo "$0 ERROR: $promiseutil_path does not exist"
-        echo  "Please download and install the Promise Pegasus Utility app from http://promise.com"
+        echo  "Please download and install the Promise Pegasus Utility app from https://www.promise.com"
         exit 1
 fi
 
