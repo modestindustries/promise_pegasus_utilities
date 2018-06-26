@@ -5,8 +5,6 @@
 # Checks the phydrv status of a Promise Pegasus, logs and mails the output if there's an issue.
 #
 # Author: A @ Modest Industries
-# Last update: 2014-07-19
-# 2014-07-19 - tweaked grep to allow for Media Patrol
 #
 # Works with Promise Utility for Pegasus2 v3.18.0000.18 (http://www.promise.com)
 # Requires sendemail for email alerts (http://caspian.dotconf.net/menu/Software/SendEmail/)
