@@ -22,11 +22,11 @@ send_email_alert=true
 
 # Variables for sendemail
 # Sender's address
-alert_sender="haywood@thegeldartgroup.com"
+alert_sender="alert@example.com"
 
 # Recipient's addresses, comma separated.
 #alert_recipient='recipientone@whereever.com, recipienttwo@whereever.com'
-alert_recipient="systems@copiouscom.com"
+alert_recipient="systems@example.com"
 
 # SMTP server to send the messages through
 # alert_smtp_server="smtp.example.com:port"
